@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Validation - GoInternet</title>
+    <title>Departments - GoInternet</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -229,155 +229,137 @@
             background: #d97706;
         }
 
-        .summary-cards {
+        /* Departments Layout */
+        .departments-layout {
             display: flex;
-            gap: 16px;
-            margin-bottom: 20px;
+            gap: 20px;
+            height: calc(100vh - 220px);
         }
 
-        .summary-card {
-            flex: 1;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: 0 2px 4px var(--shadow);
-            display: flex;
-            align-items: center;
-        }
-
-        .summary-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-size: 20px;
-        }
-
-        .summary-icon.mismatch {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--alert);
-        }
-
-        .summary-icon.mikrotik {
-            background: rgba(37, 99, 235, 0.1);
-            color: #2563EB;
-        }
-
-        .summary-icon.isp {
-            background: rgba(34, 197, 94, 0.1);
-            color: var(--secondary);
-        }
-
-        .summary-content h3 {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
-        }
-
-        .summary-content .count {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        /* Tabs */
-        .tabs-container {
+        .departments-list {
+            width: 350px;
             background: var(--card-bg);
             border-radius: var(--border-radius);
             box-shadow: 0 4px 6px var(--shadow);
-            overflow: hidden;
-            margin-bottom: 24px;
-        }
-
-        .tabs-header {
             display: flex;
-            border-bottom: 1px solid #E5E7EB;
-            background: #F9FAFB;
+            flex-direction: column;
+            overflow: hidden;
         }
 
-        .tab {
-            padding: 16px 24px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: var(--transition);
-            border-bottom: 3px solid transparent;
-        }
-
-        .tab.active {
-            border-bottom: 3px solid var(--primary);
-            color: var(--primary);
-            background: white;
-        }
-
-        .tab:hover:not(.active) {
-            background: #F3F4F6;
-        }
-
-        .tab-content {
-            display: none;
+        .list-header {
             padding: 20px;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Tables */
-        .table-container {
-            overflow-x: auto;
-            border-radius: var(--border-radius);
-            border: 1px solid #E5E7EB;
-        }
-
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .data-table th {
-            background: #F9FAFB;
-            padding: 12px 16px;
-            text-align: left;
-            font-weight: 600;
-            color: var(--text-primary);
             border-bottom: 1px solid #E5E7EB;
         }
 
-        .data-table td {
-            padding: 12px 16px;
-            border-bottom: 1px solid #E5E7EB;
-        }
-
-        .data-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .data-table tr:hover {
-            background: #F9FAFB;
-        }
-
-        .status-badge {
-            padding: 4px 8px;
+        .list-search {
+            display: flex;
+            align-items: center;
+            background: #F3F4F6;
             border-radius: 20px;
+            padding: 8px 16px;
+        }
+
+        .list-search input {
+            border: none;
+            background: transparent;
+            padding: 8px;
+            width: 100%;
+            outline: none;
+        }
+
+        .departments-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 0;
+        }
+
+        .department-item {
+            padding: 16px 20px;
+            border-bottom: 1px solid #F3F4F6;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .department-item:hover {
+            background: #F9FAFB;
+        }
+
+        .department-item.active {
+            background: rgba(39, 48, 115, 0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        .department-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .department-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .department-members {
             font-size: 12px;
+            color: var(--text-secondary);
+            background: #F3F4F6;
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        .department-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .department-status {
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 12px;
             font-weight: 500;
         }
 
-        .status-matched {
+        .status-active {
             background: rgba(34, 197, 94, 0.1);
             color: var(--secondary);
         }
 
-        .status-mismatched {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--alert);
+        .status-inactive {
+            background: rgba(107, 114, 128, 0.1);
+            color: var(--text-secondary);
         }
 
-        .action-cell {
+        /* Department Details */
+        .department-details-panel {
+            flex: 1;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px var(--shadow);
             display: flex;
-            gap: 8px;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .details-header {
+            padding: 20px;
+            border-bottom: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .details-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .details-actions {
+            display: flex;
+            gap: 10px;
         }
 
         .btn-small {
@@ -390,31 +372,277 @@
             transition: var(--transition);
         }
 
-        .btn-sync {
+        .btn-edit {
             background: var(--primary);
             color: white;
         }
 
-        .btn-sync:hover {
+        .btn-edit:hover {
             background: #1e275e;
         }
 
-        .btn-remove {
+        .btn-delete {
             background: var(--alert);
             color: white;
         }
 
-        .btn-remove:hover {
+        .btn-delete:hover {
             background: #dc2626;
         }
 
-        .btn-notify {
-            background: var(--warning);
-            color: white;
+        .details-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
         }
 
-        .btn-notify:hover {
-            background: #d97706;
+        .details-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 8px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-weight: 500;
+        }
+
+        .employees-list {
+            border: 1px solid #E5E7EB;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .employee-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .employee-item:last-child {
+            border-bottom: none;
+        }
+
+        .employee-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 12px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .employee-info {
+            flex: 1;
+        }
+
+        .employee-name {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .employee-role {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .employee-id {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .custom-fields {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .custom-field {
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+            background: #F9FAFB;
+            border-radius: var(--border-radius);
+        }
+
+        .field-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .field-value {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            width: 500px;
+            max-width: 90%;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 20px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #D1D5DB;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(39, 48, 115, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--secondary);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
         }
 
         /* Responsive */
@@ -440,8 +668,18 @@
                 margin-left: 70px;
             }
             
-            .summary-cards {
+            .departments-layout {
                 flex-direction: column;
+                height: auto;
+            }
+            
+            .departments-list {
+                width: 100%;
+                height: 300px;
+            }
+            
+            .department-details-panel {
+                height: 500px;
             }
         }
 
@@ -450,18 +688,8 @@
                 width: 200px;
             }
             
-            .tabs-header {
-                flex-direction: column;
-            }
-            
-            .tab {
-                border-bottom: 1px solid #E5E7EB;
-                border-left: 3px solid transparent;
-            }
-            
-            .tab.active {
-                border-left: 3px solid var(--primary);
-                border-bottom: 1px solid #E5E7EB;
+            .info-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -488,12 +716,15 @@
             
             .action-buttons {
                 width: 100%;
-                flex-direction: column;
             }
             
             .btn {
                 width: 100%;
                 justify-content: center;
+            }
+            
+            .modal-content {
+                width: 95%;
             }
         }
     </style>
@@ -545,9 +776,13 @@
                 <i class="fas fa-chart-bar"></i>
                 <span>BTRC Reporting</span>
             </div>
-            <div class="nav-item active">
+            <div class="nav-item">
                 <i class="fas fa-check-double"></i>
                 <span>Data Validation</span>
+            </div>
+            <div class="nav-item active">
+                <i class="fas fa-sitemap"></i>
+                <span>Departments</span>
             </div>
         </nav>
     </aside>
@@ -558,12 +793,12 @@
         <div class="header">
             <div class="search-bar">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search validation data...">
+                <input type="text" placeholder="Search departments...">
             </div>
             <div class="user-profile">
                 <div class="notifications">
                     <i class="fas fa-bell"></i>
-                    <div class="notification-badge">3</div>
+                    <div class="notification-badge">2</div>
                 </div>
                 <img src="https://ui-avatars.com/api/?name=Admin+User&background=273073&color=fff" alt="Admin User">
                 <span>Admin User</span>
@@ -572,365 +807,454 @@
 
         <!-- Page Title -->
         <div class="page-title">
-            <h2>Data Validation</h2>
-            <p>Validate and synchronize data between MikroTik and ISP systems</p>
+            <h2>Departments Management</h2>
+            <p>Create and manage departments, assign employees, and configure access</p>
         </div>
 
         <!-- Action Bar -->
         <div class="action-bar">
             <div class="action-buttons">
-                <button class="btn btn-primary" id="refreshData">
-                    <i class="fas fa-sync-alt"></i>
-                    Refresh Data
+                <button class="btn btn-primary" id="newDepartmentBtn">
+                    <i class="fas fa-plus"></i>
+                    New Department
                 </button>
-                <button class="btn btn-secondary" id="syncAll">
-                    <i class="fas fa-exchange-alt"></i>
-                    Sync All Mismatches
-                </button>
-                <button class="btn btn-warning" id="generateReport">
+                <button class="btn btn-secondary" id="exportDepartments">
                     <i class="fas fa-file-export"></i>
-                    Generate Report
+                    Export List
                 </button>
             </div>
-            <div class="last-updated">
-                Last updated: <span id="lastUpdateTime">Just now</span>
+            <div class="department-stats">
+                <span id="activeDepartments">5 Active Departments</span>
             </div>
         </div>
 
-        <!-- Summary Cards -->
-        <div class="summary-cards">
-            <div class="summary-card">
-                <div class="summary-icon mismatch">
-                    <i class="fas fa-exclamation-triangle"></i>
+        <!-- Departments Layout -->
+        <div class="departments-layout">
+            <!-- Left Panel: Departments List -->
+            <div class="departments-list">
+                <div class="list-header">
+                    <div class="list-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search departments...">
+                    </div>
                 </div>
-                <div class="summary-content">
-                    <h3>Package Mismatches</h3>
-                    <div class="count">24</div>
-                </div>
-            </div>
-            <div class="summary-card">
-                <div class="summary-icon mikrotik">
-                    <i class="fas fa-router"></i>
-                </div>
-                <div class="summary-content">
-                    <h3>MikroTik Only Clients</h3>
-                    <div class="count">15</div>
-                </div>
-            </div>
-            <div class="summary-card">
-                <div class="summary-icon isp">
-                    <i class="fas fa-database"></i>
-                </div>
-                <div class="summary-content">
-                    <h3>ISP Only Clients</h3>
-                    <div class="count">18</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tabs -->
-        <div class="tabs-container">
-            <div class="tabs-header">
-                <div class="tab active" data-tab="mismatch">Mismatch Package</div>
-                <div class="tab" data-tab="mikrotik">MikroTik Only</div>
-                <div class="tab" data-tab="isp">ISP Only</div>
-            </div>
-
-            <!-- Mismatch Package Tab -->
-            <div class="tab-content active" id="mismatch-tab">
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>User ID</th>
-                                <th>Name</th>
-                                <th>MikroTik Package</th>
-                                <th>ISP Package</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>UID-4587</td>
-                                <td>John Doe</td>
-                                <td>50 Mbps Premium</td>
-                                <td>30 Mbps Basic</td>
-                                <td><span class="status-badge status-mismatched">Mismatched</span></td>
-                                <td class="action-cell">
-                                    <button class="btn-small btn-sync">Sync</button>
-                                    <button class="btn-small btn-notify">Notify</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>UID-3291</td>
-                                <td>Sarah Johnson</td>
-                                <td>100 Mbps Business</td>
-                                <td>100 Mbps Business</td>
-                                <td><span class="status-badge status-matched">Matched</span></td>
-                                <td class="action-cell">
-                                    <button class="btn-small btn-sync" disabled>Sync</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>UID-6723</td>
-                                <td>Michael Brown</td>
-                                <td>30 Mbps Basic</td>
-                                <td>50 Mbps Premium</td>
-                                <td><span class="status-badge status-mismatched">Mismatched</span></td>
-                                <td class="action-cell">
-                                    <button class="btn-small btn-sync">Sync</button>
-                                    <button class="btn-small btn-notify">Notify</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>UID-1256</td>
-                                <td>Emily Davis</td>
-                                <td>200 Mbps Enterprise</td>
-                                <td>200 Mbps Enterprise</td>
-                                <td><span class="status-badge status-matched">Matched</span></td>
-                                <td class="action-cell">
-                                    <button class="btn-small btn-sync" disabled>Sync</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>UID-8934</td>
-                                <td>Robert Wilson</td>
-                                <td>50 Mbps Premium</td>
-                                <td>30 Mbps Basic</td>
-                                <td><span class="status-badge status-mismatched">Mismatched</span></td>
-                                <td class="action-cell">
-                                    <button class="btn-small btn-sync">Sync</button>
-                                    <button class="btn-small btn-notify">Notify</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="departments-container">
+                    <div class="department-item active" data-dept="accounts">
+                        <div class="department-header">
+                            <div class="department-name">Accounts</div>
+                            <div class="department-members">8 members</div>
+                        </div>
+                        <div class="department-details">
+                            <div class="department-code">ACC-01</div>
+                            <div class="department-status status-active">Active</div>
+                        </div>
+                    </div>
+                    <div class="department-item" data-dept="hr">
+                        <div class="department-header">
+                            <div class="department-name">Human Resources</div>
+                            <div class="department-members">5 members</div>
+                        </div>
+                        <div class="department-details">
+                            <div class="department-code">HR-01</div>
+                            <div class="department-status status-active">Active</div>
+                        </div>
+                    </div>
+                    <div class="department-item" data-dept="technical">
+                        <div class="department-header">
+                            <div class="department-name">Technical Support</div>
+                            <div class="department-members">12 members</div>
+                        </div>
+                        <div class="department-details">
+                            <div class="department-code">TEC-01</div>
+                            <div class="department-status status-active">Active</div>
+                        </div>
+                    </div>
+                    <div class="department-item" data-dept="sales">
+                        <div class="department-header">
+                            <div class="department-name">Sales & Marketing</div>
+                            <div class="department-members">6 members</div>
+                        </div>
+                        <div class="department-details">
+                            <div class="department-code">SAL-01</div>
+                            <div class="department-status status-active">Active</div>
+                        </div>
+                    </div>
+                    <div class="department-item" data-dept="network">
+                        <div class="department-header">
+                            <div class="department-name">Network Operations</div>
+                            <div class="department-members">10 members</div>
+                        </div>
+                        <div class="department-details">
+                            <div class="department-code">NET-01</div>
+                            <div class="department-status status-inactive">Inactive</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- MikroTik Only Tab -->
-            <div class="tab-content" id="mikrotik-tab">
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Client ID</th>
-                                <th>Name</th>
-                                <th>MikroTik IP</th>
-                                <th>Last Activity</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>MID-0012</td>
-                                <td>Alex Thompson</td>
-                                <td>192.168.1.45</td>
-                                <td>2 hours ago</td>
-                                <td class="action-cell">
-                                    <button class="btn-small btn-sync">Sync to ISP</button>
-                                    <button class="btn-small btn-remove">Remove</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>MID-0045</td>
-                                <td>Jennifer Lee</td>
-                                <td>192.168.1.78</td>
-                                <td>5 hours ago</td>
-                                <td class="action-cell">
-                                    <button class="btn-small btn-sync">Sync to ISP</button>
-                                    <button class="btn-small btn-remove">Remove</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>MID-0078</td>
-                                <td>David Clark</td>
-                                <td>192.168.1.112</td>
-                                <td>1 day ago</td>
-                                <td class="action-cell">
-                                    <button class="btn-small btn-sync">Sync to ISP</button>
-                                    <button class="btn-small btn-remove">Remove</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>MID-0091</td>
-                                <td>Lisa Martinez</td>
-                                <td>192.168.1.203</td>
-                                <td>3 days ago</td>
-                                <td class="action-cell">
-                                    <button class="btn-small btn-sync">Sync to ISP</button>
-                                    <button class="btn-small btn-remove">Remove</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- Right Panel: Department Details -->
+            <div class="department-details-panel">
+                <div class="details-header">
+                    <div class="details-title">Accounts Department</div>
+                    <div class="details-actions">
+                        <button class="btn-small btn-edit" id="editDepartmentBtn">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn-small btn-delete" id="deleteDepartmentBtn">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
                 </div>
-            </div>
+                <div class="details-content">
+                    <!-- Department Information -->
+                    <div class="details-section">
+                        <div class="section-title">
+                            <i class="fas fa-info-circle"></i>
+                            Department Information
+                        </div>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">Department Name</div>
+                                <div class="info-value">Accounts</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Department Code</div>
+                                <div class="info-value">ACC-01</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Created Date</div>
+                                <div class="info-value">January 15, 2023</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Status</div>
+                                <div class="info-value">
+                                    <span class="department-status status-active">Active</span>
+                                </div>
+                            </div>
+                            <div class="info-item full-width">
+                                <div class="info-label">Description</div>
+                                <div class="info-value">Manages all financial operations including billing, payments, expenses, and financial reporting for the organization.</div>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- ISP Only Tab -->
-            <div class="tab-content" id="isp-tab">
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Client ID</th>
-                                <th>Name</th>
-                                <th>ISP Account</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>IID-0034</td>
-                                <td>Mark Anderson</td>
-                                <td>ACC-78234</td>
-                                <td><span class="status-badge status-matched">Active</span></td>
-                                <td class="action-cell">
-                                    <button class="btn-small btn-sync">Sync to MikroTik</button>
-                                    <button class="btn-small btn-notify">Notify</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>IID-0056</td>
-                                <td>Amanda White</td>
-                                <td>ACC-78256</td>
-                                <td><span class="status-badge status-mismatched">Inactive</span></td>
-                                <td class="action-cell">
-                                    <button class="btn-small btn-sync">Sync to MikroTik</button>
-                                    <button class="btn-small btn-notify">Notify</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>IID-0078</td>
-                                <td>Kevin Harris</td>
-                                <td>ACC-78278</td>
-                                <td><span class="status-badge status-matched">Active</span></td>
-                                <td class="action-cell">
-                                    <button class="btn-small btn-sync">Sync to MikroTik</button>
-                                    <button class="btn-small btn-notify">Notify</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>IID-0092</td>
-                                <td>Sophia Garcia</td>
-                                <td>ACC-78292</td>
-                                <td><span class="status-badge status-matched">Active</span></td>
-                                <td class="action-cell">
-                                    <button class="btn-small btn-sync">Sync to MikroTik</button>
-                                    <button class="btn-small btn-notify">Notify</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <!-- Assigned Employees -->
+                    <div class="details-section">
+                        <div class="section-title">
+                            <i class="fas fa-users"></i>
+                            Assigned Employees (8)
+                        </div>
+                        <div class="employees-list">
+                            <div class="employee-item">
+                                <div class="employee-avatar">JD</div>
+                                <div class="employee-info">
+                                    <div class="employee-name">John Davis</div>
+                                    <div class="employee-role">Chief Financial Officer</div>
+                                </div>
+                                <div class="employee-id">EID-1001</div>
+                            </div>
+                            <div class="employee-item">
+                                <div class="employee-avatar">SM</div>
+                                <div class="employee-info">
+                                    <div class="employee-name">Sarah Miller</div>
+                                    <div class="employee-role">Senior Accountant</div>
+                                </div>
+                                <div class="employee-id">EID-1005</div>
+                            </div>
+                            <div class="employee-item">
+                                <div class="employee-avatar">RJ</div>
+                                <div class="employee-info">
+                                    <div class="employee-name">Robert Johnson</div>
+                                    <div class="employee-role">Billing Specialist</div>
+                                </div>
+                                <div class="employee-id">EID-1012</div>
+                            </div>
+                            <div class="employee-item">
+                                <div class="employee-avatar">EW</div>
+                                <div class="employee-info">
+                                    <div class="employee-name">Emily Wilson</div>
+                                    <div class="employee-role">Accounts Payable</div>
+                                </div>
+                                <div class="employee-id">EID-1018</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Fields -->
+                    <div class="details-section">
+                        <div class="section-title">
+                            <i class="fas fa-cog"></i>
+                            Department Configuration
+                        </div>
+                        <div class="custom-fields">
+                            <div class="custom-field">
+                                <div class="field-name">Access Level</div>
+                                <div class="field-value">Financial Data, Billing, Reports</div>
+                            </div>
+                            <div class="custom-field">
+                                <div class="field-name">Role Permissions</div>
+                                <div class="field-value">Invoice Management, Payment Processing</div>
+                            </div>
+                            <div class="custom-field">
+                                <div class="field-name">Department Rules</div>
+                                <div class="field-value">Monthly Audit, Expense Approval</div>
+                            </div>
+                            <div class="custom-field">
+                                <div class="field-name">Reporting Structure</div>
+                                <div class="field-value">Direct to CEO</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
+    <!-- New Department Modal -->
+    <div class="modal" id="departmentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">Create New Department</div>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="departmentForm">
+                    <div class="form-group">
+                        <label class="form-label" for="deptName">Department Name</label>
+                        <input type="text" class="form-control" id="deptName" placeholder="Enter department name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="deptCode">Department Code</label>
+                        <input type="text" class="form-control" id="deptCode" placeholder="Auto-generated" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="deptDescription">Description</label>
+                        <textarea class="form-control form-textarea" id="deptDescription" placeholder="Enter department description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="deptStatus">Status</label>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="deptStatus" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span id="statusLabel">Active</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Created By</label>
+                        <input type="text" class="form-control" value="Admin User" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Created Date</label>
+                        <input type="text" class="form-control" id="createdDate" readonly>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" id="cancelBtn">Cancel</button>
+                <button class="btn btn-primary" id="saveDepartmentBtn">Save Department</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Tab functionality
+        // Departments Page Functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const tabs = document.querySelectorAll('.tab');
-            const tabContents = document.querySelectorAll('.tab-content');
+            const departmentItems = document.querySelectorAll('.department-item');
+            const newDepartmentBtn = document.getElementById('newDepartmentBtn');
+            const editDepartmentBtn = document.getElementById('editDepartmentBtn');
+            const deleteDepartmentBtn = document.getElementById('deleteDepartmentBtn');
+            const departmentModal = document.getElementById('departmentModal');
+            const closeModalBtn = document.querySelector('.close-modal');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const saveDepartmentBtn = document.getElementById('saveDepartmentBtn');
+            const deptStatus = document.getElementById('deptStatus');
+            const statusLabel = document.getElementById('statusLabel');
+            const modalTitle = document.getElementById('modalTitle');
+            const deptCode = document.getElementById('deptCode');
+            const createdDate = document.getElementById('createdDate');
+            const departmentForm = document.getElementById('departmentForm');
             
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const tabId = this.getAttribute('data-tab');
-                    
-                    // Remove active class from all tabs and contents
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tabContents.forEach(c => c.classList.remove('active'));
-                    
-                    // Add active class to current tab and content
+            // Set current date
+            createdDate.value = new Date().toLocaleDateString();
+            
+            // Department status toggle
+            deptStatus.addEventListener('change', function() {
+                statusLabel.textContent = this.checked ? 'Active' : 'Inactive';
+            });
+            
+            // Department item selection
+            departmentItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    departmentItems.forEach(i => i.classList.remove('active'));
                     this.classList.add('active');
-                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                    
+                    // Update details panel based on selected department
+                    const deptName = this.querySelector('.department-name').textContent;
+                    document.querySelector('.details-title').textContent = deptName + ' Department';
                 });
             });
             
-            // Refresh Data button
-            document.getElementById('refreshData').addEventListener('click', function() {
-                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
-                
-                // Simulate API call
-                setTimeout(() => {
-                    this.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Data';
-                    document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString();
-                    
-                    // Show success message
-                    alert('Data refreshed successfully!');
-                }, 1500);
+            // Open new department modal
+            newDepartmentBtn.addEventListener('click', function() {
+                modalTitle.textContent = 'Create New Department';
+                departmentForm.reset();
+                deptCode.value = generateDepartmentCode();
+                departmentModal.classList.add('active');
             });
             
-            // Sync All button
-            document.getElementById('syncAll').addEventListener('click', function() {
-                if (confirm('Are you sure you want to sync all mismatched data? This action cannot be undone.')) {
-                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Syncing...';
+            // Open edit department modal
+            editDepartmentBtn.addEventListener('click', function() {
+                const activeDept = document.querySelector('.department-item.active');
+                if (activeDept) {
+                    modalTitle.textContent = 'Edit Department';
+                    const deptName = activeDept.querySelector('.department-name').textContent;
+                    const deptCodeValue = activeDept.querySelector('.department-code').textContent;
                     
-                    // Simulate API call
-                    setTimeout(() => {
-                        this.innerHTML = '<i class="fas fa-exchange-alt"></i> Sync All Mismatches';
-                        
-                        // Show success message
-                        alert('All mismatches synced successfully!');
-                    }, 2000);
+                    document.getElementById('deptName').value = deptName;
+                    document.getElementById('deptCode').value = deptCodeValue;
+                    
+                    departmentModal.classList.add('active');
                 }
             });
             
-            // Generate Report button
-            document.getElementById('generateReport').addEventListener('click', function() {
-                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            // Delete department
+            deleteDepartmentBtn.addEventListener('click', function() {
+                const activeDept = document.querySelector('.department-item.active');
+                if (activeDept) {
+                    const deptName = activeDept.querySelector('.department-name').textContent;
+                    if (confirm(`Are you sure you want to delete the "${deptName}" department? This action will soft delete the department.`)) {
+                        // Simulate deletion
+                        activeDept.style.opacity = '0.5';
+                        activeDept.style.pointerEvents = 'none';
+                        
+                        setTimeout(() => {
+                            alert(`"${deptName}" department has been soft deleted.`);
+                        }, 500);
+                    }
+                }
+            });
+            
+            // Close modal
+            function closeModal() {
+                departmentModal.classList.remove('active');
+            }
+            
+            closeModalBtn.addEventListener('click', closeModal);
+            cancelBtn.addEventListener('click', closeModal);
+            
+            // Save department
+            saveDepartmentBtn.addEventListener('click', function() {
+                const deptName = document.getElementById('deptName').value;
+                const deptCodeValue = document.getElementById('deptCode').value;
+                const deptDescription = document.getElementById('deptDescription').value;
+                const isActive = deptStatus.checked;
                 
-                // Simulate report generation
+                if (!deptName) {
+                    alert('Please enter a department name');
+                    return;
+                }
+                
+                // Simulate saving
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                
                 setTimeout(() => {
-                    this.innerHTML = '<i class="fas fa-file-export"></i> Generate Report';
+                    this.innerHTML = 'Save Department';
                     
-                    // Show success message
-                    alert('Report generated successfully!');
+                    if (modalTitle.textContent === 'Create New Department') {
+                        // Create new department item
+                        const newDeptItem = document.createElement('div');
+                        newDeptItem.className = 'department-item';
+                        newDeptItem.setAttribute('data-dept', deptName.toLowerCase().replace(/\s+/g, '-'));
+                        newDeptItem.innerHTML = `
+                            <div class="department-header">
+                                <div class="department-name">${deptName}</div>
+                                <div class="department-members">0 members</div>
+                            </div>
+                            <div class="department-details">
+                                <div class="department-code">${deptCodeValue}</div>
+                                <div class="department-status ${isActive ? 'status-active' : 'status-inactive'}">${isActive ? 'Active' : 'Inactive'}</div>
+                            </div>
+                        `;
+                        
+                        // Add click event to new department
+                        newDeptItem.addEventListener('click', function() {
+                            departmentItems.forEach(i => i.classList.remove('active'));
+                            this.classList.add('active');
+                            document.querySelector('.details-title').textContent = deptName + ' Department';
+                        });
+                        
+                        document.querySelector('.departments-container').appendChild(newDeptItem);
+                        
+                        // Select the new department
+                        departmentItems.forEach(i => i.classList.remove('active'));
+                        newDeptItem.classList.add('active');
+                        document.querySelector('.details-title').textContent = deptName + ' Department';
+                        
+                        alert(`"${deptName}" department created successfully!`);
+                    } else {
+                        // Update existing department
+                        const activeDept = document.querySelector('.department-item.active');
+                        if (activeDept) {
+                            activeDept.querySelector('.department-name').textContent = deptName;
+                            activeDept.querySelector('.department-code').textContent = deptCodeValue;
+                            activeDept.querySelector('.department-status').textContent = isActive ? 'Active' : 'Inactive';
+                            activeDept.querySelector('.department-status').className = `department-status ${isActive ? 'status-active' : 'status-inactive'}`;
+                            
+                            document.querySelector('.details-title').textContent = deptName + ' Department';
+                            
+                            alert(`"${deptName}" department updated successfully!`);
+                        }
+                    }
+                    
+                    closeModal();
                 }, 1000);
             });
             
-            // Table row actions
-            document.querySelectorAll('.btn-small').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    
-                    const action = this.textContent.trim();
-                    const row = this.closest('tr');
-                    const clientId = row.cells[0].textContent;
-                    const clientName = row.cells[1].textContent;
-                    
-                    if (action === 'Sync') {
-                        if (confirm(`Sync data for ${clientName} (${clientId})?`)) {
-                            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-                            this.disabled = true;
-                            
-                            // Simulate sync process
-                            setTimeout(() => {
-                                this.innerHTML = 'Sync';
-                                this.disabled = false;
-                                alert(`Data synced successfully for ${clientName}`);
-                            }, 1000);
-                        }
-                    } else if (action === 'Remove') {
-                        if (confirm(`Remove ${clientName} (${clientId}) from MikroTik?`)) {
-                            row.style.opacity = '0.5';
-                            
-                            // Simulate removal process
-                            setTimeout(() => {
-                                row.remove();
-                                alert(`${clientName} removed successfully`);
-                            }, 800);
-                        }
-                    } else if (action === 'Notify') {
-                        alert(`Notification sent to ${clientName}`);
+            // Generate department code
+            function generateDepartmentCode() {
+                const prefixes = {
+                    'accounts': 'ACC',
+                    'human resources': 'HR',
+                    'technical': 'TEC',
+                    'sales': 'SAL',
+                    'network': 'NET',
+                    'support': 'SUP',
+                    'marketing': 'MKT'
+                };
+                
+                const deptName = document.getElementById('deptName').value.toLowerCase();
+                let prefix = 'DEPT';
+                
+                for (const [key, value] of Object.entries(prefixes)) {
+                    if (deptName.includes(key)) {
+                        prefix = value;
+                        break;
                     }
-                });
+                }
+                
+                // Generate random number for code
+                const randomNum = Math.floor(Math.random() * 99) + 1;
+                return `${prefix}-${randomNum.toString().padStart(2, '0')}`;
+            }
+            
+            // Auto-generate code when department name changes
+            document.getElementById('deptName').addEventListener('input', function() {
+                if (modalTitle.textContent === 'Create New Department') {
+                    deptCode.value = generateDepartmentCode();
+                }
             });
             
-            // Set initial last updated time
-            document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString();
+            // Export departments
+            document.getElementById('exportDepartments').addEventListener('click', function() {
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Exporting...';
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-file-export"></i> Export List';
+                    alert('Departments list exported successfully!');
+                }, 1000);
+            });
         });
     </script>
 </body>
